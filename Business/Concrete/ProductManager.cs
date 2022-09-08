@@ -41,7 +41,7 @@ namespace Business.Concrete
             // İş kodları olduğunu düşünelim
             // Listeleme için yetkisi var mı gibi şartları kontrol edebiliriz
 
-            if (DateTime.Now.Hour == 22)
+            if (DateTime.Now.Hour == 05)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
