@@ -1,7 +1,10 @@
+using Autofac.Extensions.DependencyInjection;
 using Business.Abstract;
 using Business.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
+using Autofac;
+using Business.DependencyResolvers.Autofac;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +16,21 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddSingleton<IProductService, ProductManager>(); // bizim yerimize new'ledi açýklamasý aþaðýda
-builder.Services.AddSingleton<IProductDal, EfProductDal>(); 
+//builder.Services.AddSingleton<IProductService, ProductManager>(); // bizim yerimize new'ledi açýklamasý aþaðýda
+//builder.Services.AddSingleton<IProductDal, EfProductDal>(); 
+
+
+
+// Autofac implementasyonu
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+    .ConfigureContainer<ContainerBuilder>(builder =>
+    {
+        builder.RegisterModule(new AutofacBusinessModule());
+    });
+
+
+
+
 
 var app = builder.Build();
 
@@ -36,6 +52,11 @@ app.Run();
 
 
 /*
+ * 
+ * 
+ * !!!DÜZELTME!!!
+ * ARTIK BU ÝÞLEMLERÝ AUTOFAC ÝLE YAPICAZ 12. GÜN DEÐÝÞTÝ
+ * 
  *Biz önceden constructor bloðuna baðýmlýlýklarý enjekte etmiþtik
  *Mesela Manager class'larýna ilgili entity'nin Dal interface'ini enjekte etmiþtik
  *IoC Container bunu bizim yerimize yapýyor

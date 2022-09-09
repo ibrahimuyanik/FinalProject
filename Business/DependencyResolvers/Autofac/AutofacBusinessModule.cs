@@ -1,0 +1,51 @@
+﻿using Autofac;
+using Autofac.Extras.DynamicProxy;
+using Business.Abstract;
+using Business.Concrete;
+using Castle.DynamicProxy;
+using Core.Utilities.Interceptors;
+using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Business.DependencyResolvers.Autofac
+{
+    public class AutofacBusinessModule: Module
+    {
+        protected override void Load(ContainerBuilder builder) // uygulama çalıştığında burası çalışacak
+        {
+            builder.RegisterType<ProductManager>().As<IProductService>().SingleInstance(); // biri senden IProductService isterse ona ProductManager ver dedik.
+            builder.RegisterType<EfProductDal>().As<IProductDal>().SingleInstance();
+
+
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+
+            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
+                .EnableInterfaceInterceptors(new ProxyGenerationOptions()
+                {
+                    Selector = new AspectInterceptorSelector()
+                }).SingleInstance();
+
+
+
+        }
+    }
+}
+
+
+/*
+ *  Önceden API katmanında Ioc container ile yaptığımız instance oluşturmalarını artık autofac ile yapıcaz
+ *  Artık API katmanında değil business'da yapıcaz çünkü başka api'ler veya service'lerinde instance oluşturmaya ihtiyacı olduğu için
+ *  API'de yaparsak sadece o API'de çalışır ama Business'da yaparsak her API'de veya service'de çalışır.
+ *  
+ *  
+ *  builder.RegisterType API katmanındaki Singleton metoduna karşılık gelir. Yani interface'in hangi class'a karşılık geleceğini burada belirtiriz.
+ *  Örnek IProductService --> ProductManager' a karşılık gelir gibi.
+ *  
+ *  
+ * 
+ */
