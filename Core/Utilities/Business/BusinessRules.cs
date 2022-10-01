@@ -11,7 +11,7 @@ namespace Core.Utilities.Business
     // Run metoduna iş kurallarını yazdığımız fonk. yollayacağız hepsi IResult döndüğü için Run metodu şart doğruysa çalışacak
     public class BusinessRules
     {
-        public static IResult Run(params IResult[] logics)
+        public static IResult Run(params IResult[] logics)  
         {
             foreach (var logic in logics)
             {
