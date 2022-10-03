@@ -12,3 +12,9 @@ namespace Core.Utilities.Security.JWT
         public DateTime Expiration { get; set; }
     }
 }
+/*
+ * Kullanıcı bir işlem yapacağı zaman token bilgisini göndererek işlem yapabilir.
+ * 
+ * Kullanıcının istek yaparken  göndereceği token bilgisini ve token'ın bitiş süresini burada tutarız
+ *
+ */

@@ -21,6 +21,8 @@ namespace Core.Utilities.Security.Encryption
  * Yani securityKey değerini verdik ve hangi algoritmayı kullanması gerektiğini belirttik
  * securityKey API katmanında yazdığımız değer
  * 
+ * Token  oluştururken API katmanındaki securityKey değerinin byte[] halini kullanarak ve
+ * HmacSha512Signature algoritmasını kullanarak token oluşturulacağını belirttik
  * 
  * 
  * 

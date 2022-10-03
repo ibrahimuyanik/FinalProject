@@ -17,6 +17,9 @@ namespace Core.Utilities.Security.Encryption
 }
 /*
  * Bu metod API katmanındaki appsettings.json dosyasının içindeki SecurityKey değerini ikilik sisteme çevirmek için ve simetrik anahtar haline getirmek için
+ * Böyle yapmamızın sebebi asp.net core securityKey değerlerini byte[] şeklinde istediği için yani string ifadelerle token oluşturamıyor
+ * 
+ * SymmetricSecurityKey --> byte[] haline dönüştürülen değeri simetrik anahtar haline getirir.
  * 
  * 
  */

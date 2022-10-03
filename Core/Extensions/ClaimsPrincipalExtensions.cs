@@ -21,3 +21,9 @@ namespace Core.Extensions
         }
     }
 }
+/*
+ * Sisteme giriş yapan kullanıcının token bilgisinden claim'lerine ulaşmamızı sağlayan işleri yapar.
+ * 
+ * 
+ * 
+ */

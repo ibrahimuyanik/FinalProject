@@ -31,3 +31,9 @@ namespace Core.Extensions
         }
     }
 }
+/*
+ * Burada .Net'in içinde var olan bir class'a yeni metodlar ekledik.
+ * 
+ * 
+ * 
+ */
