@@ -14,6 +14,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Http;
 using Autofac.Core;
+using Core.Extensions;
+using Core.DependencyResolvers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +24,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) // API'ye JWT kullanýlacaðýný söyledik
@@ -40,7 +42,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) // AP
         };
     });
 
-ServiceTool.Create(builder.Services);
+builder.Services.AddDependencyResolvers(new ICoreModule[]
+{
+    new CoreModule()
+});
 
 
 
@@ -83,7 +88,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
+
 app.UseAuthorization();
+
+app.UseAuthentication();
 
 app.MapControllers();
 
