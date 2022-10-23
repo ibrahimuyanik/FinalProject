@@ -42,6 +42,17 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("getbycategory")]
+        public IActionResult GetByCategory(int categoryId)
+        {
+            var result = _productService.GetAllByCategoryId(categoryId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
 
         [HttpPost("add")]
         public IActionResult Add(Product product)
@@ -52,6 +63,19 @@ namespace WebAPI.Controllers
                 return Ok(result);
             }
             return BadRequest(result);
+        }
+
+        [HttpGet("getproductdetails")]
+        public IActionResult GetProductDetails()
+        {
+            //Thread.Sleep(5000);
+            var result = _productService.GetProductDetails();
+            if (result.Success)
+            {
+                return Ok(result); // OK HTTP 200 Statü koduna denk gelir yani işlem başarılı demek
+            }
+
+            return BadRequest(result); // istek başarısız olursa burası çalışır
         }
     }
 }

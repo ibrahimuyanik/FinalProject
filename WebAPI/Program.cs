@@ -86,6 +86,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.ConfigureCustomExceptionMiddleware();
+
 app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader()); // bu adresten gelen tüm istekleri kabul et dedik
 
 app.UseHttpsRedirection();
